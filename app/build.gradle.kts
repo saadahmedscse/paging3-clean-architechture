@@ -57,6 +57,9 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.4")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.4")
 
+    //Paging 3
+    implementation("androidx.paging:paging-runtime:3.1.1")
+
     //Lottie
     implementation("com.airbnb.android:lottie:5.2.0")
 

@@ -1,26 +1,36 @@
 package com.saadahmedev.paging.domain.useCase
 
+import androidx.lifecycle.MutableLiveData
+import androidx.paging.PagingSource
+import androidx.paging.PagingState
 import com.saadahmedev.paging.domain.model.UnionResponse
 import com.saadahmedev.paging.domain.repository.CmedRepository
-import com.saadahmedev.paging.util.ResponseState
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import javax.inject.Inject
 
-class CmedUseCase @Inject constructor(private val cmedRepository: CmedRepository) {
+class CmedUseCase(private val cmedRepository: CmedRepository, private val loadingState: MutableLiveData<Boolean>) : PagingSource<Int, UnionResponse>() {
 
-    operator fun invoke(page: Int, size: Int): Flow<ResponseState<List<UnionResponse>>> = flow {
-        emit(ResponseState.Loading())
-
-        try {
-            emit(
-                ResponseState.Success(
-                    cmedRepository.getUnions(page, size).unions?.map { it.toResponse() }
-                )
-            )
+    override fun getRefreshKey(state: PagingState<Int, UnionResponse>): Int? {
+        return state.anchorPosition?.let {
+            state.closestPageToPosition(it)?.prevKey?.plus(1)
+                ?: state.closestPageToPosition(it)?.nextKey?.minus(1)
         }
-        catch (e: Exception) {
-            emit(ResponseState.Error(e.message))
+    }
+
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, UnionResponse> {
+        val page = params.key ?: 1
+        loadingState.postValue(true)
+
+        return try {
+            val response = cmedRepository.getUnions(page, 10)
+
+            loadingState.postValue(false)
+            LoadResult.Page(
+                data = response.unions?.map { it.toResponse() } ?: emptyList(),
+                prevKey = if (page == 1) null else page - 1,
+                nextKey = if (page == response.totalPages) null else page + 1
+            )
+        } catch (e: Exception) {
+            loadingState.postValue(false)
+            LoadResult.Error(e)
         }
     }
 }
