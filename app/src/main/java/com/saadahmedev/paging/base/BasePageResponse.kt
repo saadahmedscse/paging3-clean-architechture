@@ -1,4 +1,4 @@
-package com.saadahmedev.paging.data.dto
+package com.saadahmedev.paging.base
 
 import com.google.gson.GsonBuilder
 import com.google.gson.annotations.SerializedName

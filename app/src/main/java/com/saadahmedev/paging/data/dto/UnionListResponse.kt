@@ -1,8 +1,5 @@
 package com.saadahmedev.paging.data.dto
 
-import com.google.gson.annotations.SerializedName
+import com.saadahmedev.paging.base.BaseContentListResponse
 
-class UnionListResponse(
-    @SerializedName("content")
-    var unions: List<Union>? = null
-) : BasePageResponse()
+class UnionListResponse : BaseContentListResponse<Union>()
