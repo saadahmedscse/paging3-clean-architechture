@@ -6,7 +6,7 @@ object AppConstants {
     }
 
     object Api {
-        const val BASE_URL = "https://currency-converter241.p.rapidapi.com/"
+        const val BASE_URL = "https://core-stage.cmedhealth.com/api/"
     }
 
     const val SPLASH_SCREEN_TIME = 2000L
