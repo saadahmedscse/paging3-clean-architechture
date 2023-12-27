@@ -8,6 +8,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.saadahmedev.paging.base.BasePagingSource
+import com.saadahmedev.paging.base.PagingSource
 import com.saadahmedev.paging.domain.repository.CmedRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -18,11 +19,5 @@ class HomeFragmentViewModel @Inject constructor(private val cmedRepository: Cmed
     val loadingState: LiveData<Boolean>
         get() = _loadingState
 
-    fun getUnions() = Pager(
-        PagingConfig(
-            pageSize = 1
-        )
-    ) {
-        BasePagingSource(cmedRepository::getUnions, _loadingState, 10)
-    }.flow.cachedIn(viewModelScope)
+    fun getUnions() = PagingSource.getData(viewModelScope, cmedRepository::getUnions, _loadingState)
 }
