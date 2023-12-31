@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Paging Android"
 include(":app")
+include(":cmedpaging")
