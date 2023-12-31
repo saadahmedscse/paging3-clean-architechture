@@ -2,15 +2,14 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
-    id("com.google.dagger.hilt.android")
 }
 
 android {
-    namespace = "com.saadahmedev.paging"
+    namespace = "com.saadahmedev.pagingTest"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.saadahmedev.paging"
+        applicationId = "com.saadahmedev.pagingTest"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -52,32 +51,4 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-
-    //Navigation
-    implementation("androidx.navigation:navigation-fragment-ktx:2.7.4")
-    implementation("androidx.navigation:navigation-ui-ktx:2.7.4")
-
-    //Paging 3
-    implementation("androidx.paging:paging-runtime:3.1.1")
-
-    //Lottie
-    implementation("com.airbnb.android:lottie:5.2.0")
-
-    //Dagger-Hilt
-    implementation("com.google.dagger:hilt-android:2.44")
-    kapt("com.google.dagger:hilt-android-compiler:2.44")
-
-    //sSP sDP
-    implementation("com.intuit.ssp:ssp-android:1.0.6")
-    implementation("com.intuit.sdp:sdp-android:1.0.6")
-
-    //Retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-
-    //OkHTTP
-    implementation("com.squareup.okhttp3:okhttp:4.10.0")
-
-    //Splash
-    implementation("androidx.core:core-splashscreen:1.0.1")
 }
